@@ -67,23 +67,23 @@ extern "C" JNIEXPORT jstring JNICALL testString(
 extern "C"
 JNIEXPORT void JNICALL open(JNIEnv *env, jobject thiz, jstring _url, jobject jHandle) {
 
-//    if (_url == nullptr || env == nullptr) {
-//        logInfo(env, thiz, "url =null file  open fail ");
-//        return;
-//    }
-//
-//    const char *url = env->GetStringUTFChars(_url, nullptr);
-//
-//    FILE *fp = fopen(url, "rb");
-//    if (!fp) {
-//        logInfo(env, thiz, "%s file  open fail ", url);
-//        LOGW("%s file  open fail ", url);
-//    } else {
-//        LOGI("%s file  open success ", url);
-//        logInfo(env, thiz, "%s file  open success ", url);
-//        fclose(fp);
-//    }
-//    env->ReleaseStringUTFChars(_url, url);
+    if (_url == nullptr || env == nullptr) {
+        logInfo(env, thiz, "url =null file  open fail ");
+        return;
+    }
+
+    const char *url = env->GetStringUTFChars(_url, nullptr);
+
+    FILE *fp = fopen(url, "rb");
+    if (!fp) {
+        logInfo(env, thiz, "%s file  open fail ", url);
+        LOGW("%s file  open fail ", url);
+    } else {
+        LOGI("%s file  open success ", url);
+        logInfo(env, thiz, "%s file  open success ", url);
+        fclose(fp);
+    }
+    env->ReleaseStringUTFChars(_url, url);
 
 }
 
