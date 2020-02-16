@@ -3,7 +3,8 @@ package com.dr.ffmpeg.app;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.dr.ffmpeg.jni.FFmpegJNIManager;
+import com.dr.ffmpeg.jni.JNILogInfoCallBack;
+import com.dr.ffmpeg.jni.JNIManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,20 +18,23 @@ import androidx.appcompat.app.AppCompatActivity;
  * 修改时间：2020/2/14 3:37 PM
  * 修改备注：
  */
-public abstract class BaseActivity extends AppCompatActivity implements FFmpegJNIManager.JNILogInfoCallBack {
+public abstract class BaseActivity extends AppCompatActivity implements JNILogInfoCallBack {
     
     abstract int getLayoutViewId();
     
     private TextView logView;
     
-    FFmpegJNIManager manager;
+    JNIManager manager;
+    
+    
+    abstract JNIManager getJNIManager();
     
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutViewId());
-       
-        manager = ((MyApplication) getApplication()).getFFmpegJNIManager();
+        
+        manager = getJNIManager();
         manager.setLogCallBack(this);
         logView = findViewById(R.id.logView);
         initView();
@@ -47,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements FFmpegJN
             public void run() {
                 if (logView != null) {
                     logView.append(message);
-                    logView.append("\n");
+                    logView.append("\n\n");
                 }
             }
         });

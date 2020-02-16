@@ -1,24 +1,26 @@
 package com.dr.ffmpeg.app;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 import android.view.View;
 
-import com.dr.ffmpeg.jni.FFmpegJNIManager2;
-import com.dr.ffmpeg.jni.JNILogInfoCallBack;
+import com.dr.ffmpeg.jni.FFmpegJNIManager3;
+import com.dr.ffmpeg.jni.FFmpegJNIManager5;
 import com.dr.ffmpeg.jni.JNIManager;
 
-public class Demo02Activity extends BaseActivity implements View.OnClickListener, JNILogInfoCallBack {
+public class Demo05Activity extends BaseActivity implements View.OnClickListener {
     
     
     @Override
     int getLayoutViewId() {
-        return R.layout.activity_demo02;
+        return R.layout.activity_demo05;
     }
     
     @Override
     JNIManager getJNIManager() {
-        return new FFmpegJNIManager2();
+        return new FFmpegJNIManager5();
     }
-    
     
     @Override
     void initView() {
@@ -35,7 +37,7 @@ public class Demo02Activity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         super.run();
-                        ((FFmpegJNIManager2) manager).initFFmpeg("/sdcard/1080.mp4");
+                        ((FFmpegJNIManager5) manager).initFFmpeg("/sdcard/1080.mp4");
                     }
                 }.start();
                 
@@ -46,7 +48,7 @@ public class Demo02Activity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         super.run();
-                        ((FFmpegJNIManager2) manager).initFFmpeg("/sdcard/1085.mp4");
+                        ((FFmpegJNIManager5) manager).initFFmpeg("/sdcard/1085.mp4");
                     }
                 }.start();
                 break;
@@ -55,13 +57,11 @@ public class Demo02Activity extends BaseActivity implements View.OnClickListener
                 new Thread() {
                     @Override
                     public void run() {
-                        ((FFmpegJNIManager2) manager).initFFmpeg("/sdcard/1084.flv");
+                        ((FFmpegJNIManager5) manager).initFFmpeg("/sdcard/1084.flv");
                     }
                 }.start();
                 break;
             }
         }
     }
-    
-    
 }

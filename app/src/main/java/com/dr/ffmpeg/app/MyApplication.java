@@ -2,8 +2,6 @@ package com.dr.ffmpeg.app;
 
 import android.app.Application;
 
-import com.dr.ffmpeg.jni.FFmpegJNIManager;
-
 /**
  * 项目名称：FFmpegApp2
  * 类描述：
@@ -15,17 +13,10 @@ import com.dr.ffmpeg.jni.FFmpegJNIManager;
  */
 public class MyApplication extends Application {
     
-    FFmpegJNIManager fFmpegJNIManager;
     
     @Override
     public void onCreate() {
         super.onCreate();
-        fFmpegJNIManager = new FFmpegJNIManager();
-        fFmpegJNIManager.init();
     }
     
-    
-    public FFmpegJNIManager getFFmpegJNIManager() {
-        return fFmpegJNIManager;
-    }
 }

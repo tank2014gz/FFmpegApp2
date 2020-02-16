@@ -1,6 +1,5 @@
 package com.dr.ffmpeg.jni;
 
-import android.util.SparseArray;
 
 /**
  * 项目名称：FFmpegApp2
@@ -11,22 +10,11 @@ import android.util.SparseArray;
  * 修改时间：2020/2/14 10:20 AM
  * 修改备注：
  */
-public class FFmpegJNIManager {
+public class FFmpegJNIManager2 implements JNIManager {
     private JNILogInfoCallBack jniLogInfoCallBack;
     
     static {
-        System.loadLibrary("native-lib");
-    }
-    
-    
-    public void init() {
-        ;
-    }
-    
-    
-    public void setLogCallBack(JNILogInfoCallBack callBack) {
-        this.jniLogInfoCallBack = callBack;
-        
+        System.loadLibrary("demo02-lib");
     }
     
     
@@ -36,14 +24,12 @@ public class FFmpegJNIManager {
         }
     }
     
-    public native String testString();
-    
-    
-    public native void open(String url, Object handle);
     
     public native void initFFmpeg(String path);
     
-    public interface JNILogInfoCallBack {
-        void logInfo(String message);
+    
+    @Override
+    public void setLogCallBack(JNILogInfoCallBack jniLogInfoCallBack) {
+        this.jniLogInfoCallBack = jniLogInfoCallBack;
     }
 }

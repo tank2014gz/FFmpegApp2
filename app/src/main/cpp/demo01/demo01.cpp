@@ -2,7 +2,7 @@
 #include <string>
 
 
-#include "include/my_log.h"
+#include "../include/my_log.h"
 //定义日志最大长度是256
 #define MAX_LOG_MESSAGE_LENGTH 256
 
@@ -10,8 +10,6 @@
 #define MAX_BUFFER_SIZE 80
 extern "C" {
 #include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-#include <libavutil/avutil.h>
 }
 
 
@@ -49,15 +47,15 @@ static void logInfo(JNIEnv *env, jobject _clazz, const char *format, ...) {
 }
 
 
-const char *className = "com/dr/ffmpeg/jni/FFmpegJNIManager";
+const char *className = "com/dr/ffmpeg/jni/FFmpegJNIManager1";
 
 extern "C" JNIEXPORT jstring JNICALL testString(
         JNIEnv *env,
         jobject thiz) {
     std::string hello = "Hello from C++";
 
-//    const char *avcodec_info = avcodec_configuration();
-//    hello += avcodec_info;
+    const char *avcodec_info = avcodec_configuration();
+    hello += avcodec_info;
     return env->NewStringUTF(hello.c_str());
 }
 
@@ -87,44 +85,9 @@ JNIEXPORT void JNICALL open(JNIEnv *env, jobject thiz, jstring _url, jobject jHa
 
 }
 
-/**
- *
- */
-extern "C"
-JNIEXPORT void JNICALL initFFmpeg(JNIEnv *env, jobject thiz, jstring _path) {
-    //初始化解封装(解封装器)
-    av_register_all();
-    //初始化网络
-    avformat_network_init();
-
-    //打开文件
-    AVFormatContext *ic = NULL;
-    const char *path1 = env->GetStringUTFChars(_path, 0);
-    LOGW("path1=%s", path1);
-    AVInputFormat *avInputFormat = NULL;
-    try {
-        int res = avformat_open_input(&ic, path1, avInputFormat, 0);
-
-        if (0 == res) {
-            logInfo(env, thiz, "avfomat_open_input %s success", path1);
-            LOGW("avfomat_open_input %s success", path1);
-        } else {
-            logInfo(env, thiz, "%s avformat_open_input faild %s", path1, av_err2str(res));
-            LOGW("avformat_open_input faild %s", av_err2str(res));
-        }
-
-    } catch (char *str) {
-        logInfo(env, thiz, "avfomat_open_input %s fail", str);
-    }
-    env->ReleaseStringUTFChars(_path, path1);
-
-
-}
-
 
 static JNINativeMethod methods[] = {
         {"testString", "()Ljava/lang/String;",                    (void *) testString},
-        {"initFFmpeg", "(Ljava/lang/String;)V",                   (void *) initFFmpeg},
         {"open",       "(Ljava/lang/String;Ljava/lang/Object;)V", (void *) open},
 };
 

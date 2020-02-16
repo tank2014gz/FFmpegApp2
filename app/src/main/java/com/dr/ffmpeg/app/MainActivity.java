@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.dr.ffmpeg.jni.FFmpegJNIManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         
         List<String> titles = new ArrayList<>();
-        titles.add("初始化FFMPEG avcodec.so加载");
-        titles.add("FFMPEG 视频解封装'");
+        titles.add("1 初始化FFMPEG avcodec.so加载");
+        titles.add("2 FFMPEG 视频软解码 解封装");
+        titles.add("3 FFMPEG 视频硬解码 解封装");
+        titles.add("4 FFMPEG 视频软解码 解封装");
+        titles.add("5 FFMPEG 视频硬解码 视频格式转换");
         
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titles));
         
@@ -42,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 1: {
                         startActivity(new Intent(MainActivity.this, Demo02Activity.class));
+                        break;
+                    }
+                    case 2: {
+                        startActivity(new Intent(MainActivity.this, Demo03Activity.class));
+                        break;
+                    }
+                    case 3: {
+                        startActivity(new Intent(MainActivity.this, Demo04Activity.class));
+                        break;
+                    }
+                    case 4: {
+                        startActivity(new Intent(MainActivity.this, Demo05Activity.class));
                         break;
                     }
                 }

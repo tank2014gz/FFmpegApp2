@@ -1,17 +1,13 @@
 package com.dr.ffmpeg.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dr.ffmpeg.jni.FFmpegJNIManager;
+import com.dr.ffmpeg.jni.FFmpegJNIManager1;
+import com.dr.ffmpeg.jni.JNIManager;
 
-import org.w3c.dom.Text;
 
 public class Demo01Activity extends BaseActivity implements View.OnClickListener {
-    
     
     
     @Override
@@ -19,11 +15,16 @@ public class Demo01Activity extends BaseActivity implements View.OnClickListener
         return R.layout.activity_demo01;
     }
     
+    @Override
+    JNIManager getJNIManager() {
+        return new FFmpegJNIManager1();
+    }
+    
     
     @Override
     void initView() {
         TextView infoView = findViewById(R.id.testInfo);
-        infoView.setText(manager.testString());
+        infoView.setText(((FFmpegJNIManager1) manager).testString());
         findViewById(R.id.openFile).setOnClickListener(this);
         findViewById(R.id.openFile1).setOnClickListener(this);
     }
@@ -33,11 +34,12 @@ public class Demo01Activity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.openFile: {
-                manager.open("999999", 0);
+                ((FFmpegJNIManager1) manager).open("/sdcard/1080.mp4", this);
                 break;
             }
             case R.id.openFile1: {
-                manager.open("/sdcard/1080.mp4", this);
+                ((FFmpegJNIManager1) manager).open("/sdcard/1085.mp4", this);
+                break;
             }
         }
         
